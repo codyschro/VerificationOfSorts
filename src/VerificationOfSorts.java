@@ -5,24 +5,12 @@ public class VerificationOfSorts {
     //Define constants
     static long MAXVALUE = 10000;
     static long MINVALUE = -10000;
-    static int LISTSIZE = 10;
+    static int LISTSIZESMALL = 20;
+    static int LISTSIZEBIG = 10000;
 
     public static void main(String[] args) {
 
-        long[] testList = createRandomListOfIntegers(LISTSIZE);
-        boolean result = false;
-
-        System.out.println("Before Quick Sort:");
-        System.out.println(Arrays.toString(testList));
-        naiveQuickSort(testList);
-        System.out.println("After Quick Sort");
-        System.out.println(Arrays.toString(testList));
-
-        result = verifySorted(testList);
-        System.out.println("Quick sort sorted list correctly? " + result);
-
-
-
+        checkSortCorrectness();
     }
 
     public static boolean verifySorted(long arr[]){
@@ -140,6 +128,7 @@ public class VerificationOfSorts {
         //set variables
         int i = lo;
         int j = hi;
+        //choose pivot in middle
         int pivot = (int) list[lo + (hi - lo)/2];
 
         //divide into two arrays
@@ -182,7 +171,7 @@ public class VerificationOfSorts {
         //set variables
         int i = lo;
         int j = hi;
-        int pivot = (int) list[0];
+        int pivot = (int) list[lo];
 
         //divide into two arrays
         while (i <= j){
@@ -225,5 +214,94 @@ public class VerificationOfSorts {
             newList[j] = (long) (MINVALUE + Math.random() * (MAXVALUE - MINVALUE));
         }
         return newList;
+    }
+
+    public static void checkSortCorrectness(){
+
+        //would have made this better (less repeated code) but didn't have time... it works tho
+        //create test lists one for each of 5 sorts, one small and one big
+        long[] testList0 = createRandomListOfIntegers(LISTSIZESMALL);
+        long[] testList1 = createRandomListOfIntegers(LISTSIZESMALL);
+        long[] testList2 = createRandomListOfIntegers(LISTSIZESMALL);
+        long[] testList3 = createRandomListOfIntegers(LISTSIZESMALL);
+        long[] testList4 = createRandomListOfIntegers(LISTSIZESMALL);
+        long[] testList5 = createRandomListOfIntegers(LISTSIZEBIG);
+        long[] testList6 = createRandomListOfIntegers(LISTSIZEBIG);
+        long[] testList7 = createRandomListOfIntegers(LISTSIZEBIG);
+        long[] testList8 = createRandomListOfIntegers(LISTSIZEBIG);
+        long[] testList9 = createRandomListOfIntegers(LISTSIZEBIG);
+
+        //run tests printing lists of 20 for each and check its sorted
+        System.out.println("Before Bubble Sort:");
+        System.out.println(Arrays.toString(testList0));
+        bubbleSort(testList0);
+        System.out.println("After Bubble Sort");
+        System.out.println(Arrays.toString(testList0));
+        boolean result = false;
+        result = verifySorted(testList0);
+        System.out.println("Bubble sort sorted list correctly? " + result);
+
+        System.out.println("Before Insertion Sort:");
+        System.out.println(Arrays.toString(testList1));
+        insertionSort(testList1);
+        System.out.println("After Insertion Sort");
+        System.out.println(Arrays.toString(testList1));
+        result = false;
+        result = verifySorted(testList1);
+        System.out.println("Insertion sort sorted list correctly? " + result);
+
+        System.out.println("Before Merge Sort:");
+        System.out.println(Arrays.toString(testList2));
+        mergeSort(testList2);
+        System.out.println("After Merge Sort");
+        System.out.println(Arrays.toString(testList2));
+        result = false;
+        result = verifySorted(testList2);
+        System.out.println("Merge sort sorted list correctly? " + result);
+
+        System.out.println("Before Quick Sort:");
+        System.out.println(Arrays.toString(testList3));
+        quickSort(testList3);
+        System.out.println("After Quick Sort");
+        System.out.println(Arrays.toString(testList3));
+        result = false;
+        result = verifySorted(testList3);
+        System.out.println("Quick sort sorted list correctly? " + result);
+
+        System.out.println("Before Naive Quick Sort:");
+        System.out.println(Arrays.toString(testList4));
+        naiveQuickSort(testList4);
+        System.out.println("After Naive Quick Sort");
+        System.out.println(Arrays.toString(testList4));
+        result = false;
+        result = verifySorted(testList4);
+        System.out.println("Naive quick sort sorted list correctly? " + result +"\n");
+
+        //test lists of 10000 on each sort
+        result = false;
+        bubbleSort(testList5);
+        result = verifySorted(testList5);
+        System.out.println("Bubble sort sorted large list correctly? " + result);
+
+        result = false;
+        insertionSort(testList6);
+        result = verifySorted(testList6);
+        System.out.println("Insertion sort sorted large list correctly? " + result);
+
+        result = false;
+        mergeSort(testList7);
+        result = verifySorted(testList7);
+        System.out.println("Merge sort sorted large list correctly? " + result);
+
+        result = false;
+        quickSort(testList8);
+        result = verifySorted(testList8);
+        System.out.println("Quick sort sorted large list correctly? " + result);
+
+        result = false;
+        naiveQuickSort(testList9);
+        result = verifySorted(testList9);
+        System.out.println("Naive quick sort sorted large list correctly? " + result);
+
     }
 }
